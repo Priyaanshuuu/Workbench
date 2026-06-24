@@ -1,13 +1,14 @@
-import type { Role, User, ResourceKey, ResolvedPermission, UserResolvedPermissions , RoleObject } from "./types";
+import type { Role, User, ResourceKey, ResolvedPermission, UserResolvedPermissions } from "./types";
 import { PERMISSION_MAP, RESOURCES } from "./constants";
 
 export function resolvePermissions(
   roles: Role[]
 ): Map<string, { roleId: string; roleName: string; roleColor: string }[]> {
-  const permissionMap = new Map
+  const permissionMap = new Map<
     string,
     { roleId: string; roleName: string; roleColor: string }[]
   >();
+  
   for (const role of roles) {
     for (const permission of role.permissions) {
       const existing = permissionMap.get(permission) ?? [];

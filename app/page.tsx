@@ -4,7 +4,7 @@ import { store } from "@/lib/store";
 import { ALL_PERMISSIONS, RESOURCES } from "@/lib/constants";
 import { StatCard } from "@/components/ui/StateCard";
 import { RoleBadge } from "@/components/ui/RoleBadge";
-import { Avatar } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export const dynamic = "force-dynamic";
 
@@ -92,7 +92,19 @@ export default function DashboardPage() {
           <div className="space-y-3">
             {enrichedUsers.map((user) => (
               <Link key={user.id} href={`/users/${user.id}`} className="flex items-center gap-3 rounded-lg border border-gray-100 p-3 hover:border-violet-200 hover:bg-violet-50/50 transition-all">
-                <Avatar initials={user.initials} color={user.avatarColor} size="sm" />
+                {/* Updated Shadcn UI Avatar Implementation */}
+                <Avatar size="sm">
+                  {/* <AvatarImage src={user.avatarUrl} /> */}
+                  <AvatarFallback 
+                    style={{ 
+                      backgroundColor: user.avatarColor, 
+                      color: user.avatarColor ? '#ffffff' : undefined 
+                    }}
+                  >
+                    {user.initials}
+                  </AvatarFallback>
+                </Avatar>
+
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium text-gray-800 truncate">{user.name}</p>
                   <p className="text-xs text-gray-400 truncate">{user.email}</p>

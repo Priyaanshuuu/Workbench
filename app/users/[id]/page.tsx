@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ChevronLeft, Key } from "lucide-react";
 import { store } from "@/lib/store";
 import { buildUserResolvedPermissions } from "@/lib/permission";
-import { Avatar } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { RoleBadge } from "@/components/ui/RoleBadge";
 import { RoleAssignment } from "@/components/users/RoleAssignment";
 import { RESOURCES } from "@/lib/constants";
@@ -29,7 +29,19 @@ export default async function UserDetailPage({ params }: Params) {
       </Link>
 
       <div className="mb-8 flex items-center gap-5 rounded-xl border border-gray-200 bg-white p-6">
-        <Avatar initials={user.initials} color={user.avatarColor} size="lg" />
+        {/* Updated Shadcn UI Avatar Implementation */}
+        <Avatar size="lg">
+          {/* Optional: Add an <AvatarImage src={user.imageUrl} /> here if your user object has profile images */}
+          <AvatarFallback 
+            style={{ 
+              backgroundColor: user.avatarColor, 
+              color: user.avatarColor ? '#ffffff' : undefined 
+            }}
+          >
+            {user.initials}
+          </AvatarFallback>
+        </Avatar>
+
         <div className="flex-1 min-w-0">
           <h1 className="text-xl font-semibold text-gray-900">{user.name}</h1>
           <p className="text-sm text-gray-500 mt-0.5">{user.email}</p>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { Role, User } from "@/lib/types";
-import { Avatar } from "../ui/avatar";
+import { Avatar, AvatarFallback } from "../ui/avatar";
 import { RoleBadge } from "@/components/ui/RoleBadge";
 
 interface UserCardProps {
@@ -15,7 +15,17 @@ export function UserCard({ user, roles }: UserCardProps) {
       href={`/users/${user.id}`}
       className="group flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm hover:shadow-md hover:border-violet-200 transition-all duration-200"
     >
-      <Avatar initials={user.initials} color={user.avatarColor} size="lg" />
+      <Avatar size="lg">
+        <AvatarFallback 
+          style={{ 
+            backgroundColor: user.avatarColor, 
+            color: user.avatarColor ? '#ffffff' : undefined 
+          }}
+        >
+          {user.initials}
+        </AvatarFallback>
+      </Avatar>
+
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <p className="text-sm font-semibold text-gray-900 truncate">{user.name}</p>

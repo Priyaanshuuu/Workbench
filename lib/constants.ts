@@ -66,7 +66,7 @@ export const RESOURCE_MAP: Record<ResourceKey, Resource> = RESOURCES.reduce(
   {} as Record<ResourceKey, Resource>
 );
 
-export const PERMISSION_MAP: Record
+export const PERMISSION_MAP: Record<
   string,
   { resource: Resource; action: (typeof RESOURCES)[0]["actions"][0] }
 > = RESOURCES.reduce(
@@ -85,7 +85,8 @@ export const ROLE_COLORS = [
 
 export type RoleColor = (typeof ROLE_COLORS)[number];
 
-export const ROLE_COLOR_CLASSES: Record
+
+export const ROLE_COLOR_CLASSES: Record<
   RoleColor,
   { bg: string; text: string; border: string; badge: string }
 > = {

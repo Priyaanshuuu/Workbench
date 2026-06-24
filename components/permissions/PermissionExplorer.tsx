@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Search, ChevronDown, Loader2 } from "lucide-react";
 import type { User, UserResolvedPermissions, Role } from "@/lib/types";
 import { RESOURCES } from "@/lib/constants";
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { RoleBadge } from "@/components/ui/RoleBadge";
 import { cn } from "@/lib/utils";
 
@@ -22,26 +22,44 @@ export function PermissionExplorer({ users, defaultUserId }: PermissionExplorerP
 
   const selectedUser = users.find((u) => u.id === selectedUserId);
 
-  const fetchResolved = useCallback(async (userId: string) => {
-    if (!userId) return;
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch(`/api/resolve/${userId}`);
-      const json = await res.json();
-      if (!res.ok) { setError(json.error ?? "Failed to load permissions"); setResolved(null); return; }
-      setResolved(json.data);
-    } catch {
-      setError("Failed to load permissions");
-      setResolved(null);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
-    if (selectedUserId) fetchResolved(selectedUserId);
-  }, [selectedUserId, fetchResolved]);
+    if (!selectedUserId) return;
+
+    let ignore = false;
+
+    const fetchResolved = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(`/api/resolve/${selectedUserId}`);
+        const json = await res.json();
+        
+        if (!ignore) {
+          if (!res.ok) { 
+            setError(json.error ?? "Failed to load permissions"); 
+            setResolved(null); 
+            return; 
+          }
+          setResolved(json.data);
+        }
+      } catch {
+        if (!ignore) {
+          setError("Failed to load permissions");
+          setResolved(null);
+        }
+      } finally {
+        if (!ignore) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchResolved();
+
+    return () => {
+      ignore = true; 
+    };
+  }, [selectedUserId]);
 
   return (
     <div className="space-y-6">
@@ -55,7 +73,12 @@ export function PermissionExplorer({ users, defaultUserId }: PermissionExplorerP
           >
             {selectedUser ? (
               <>
-                <Avatar initials={selectedUser.initials} color={selectedUser.avatarColor} size="sm" />
+                <Avatar size="sm">
+                  {/* <AvatarImage src={selectedUser.avatarUrl} /> */}
+                  <AvatarFallback style={{ backgroundColor: selectedUser.avatarColor, color: selectedUser.avatarColor ? '#ffffff' : undefined }}>
+                    {selectedUser.initials}
+                  </AvatarFallback>
+                </Avatar>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-gray-900">{selectedUser.name}</p>
                   <p className="text-xs text-gray-500">{selectedUser.email}</p>
@@ -81,7 +104,11 @@ export function PermissionExplorer({ users, defaultUserId }: PermissionExplorerP
                     user.id === selectedUserId && "bg-violet-50"
                   )}
                 >
-                  <Avatar initials={user.initials} color={user.avatarColor} size="sm" />
+                  <Avatar size="sm">
+                    <AvatarFallback style={{ backgroundColor: user.avatarColor, color: user.avatarColor ? '#ffffff' : undefined }}>
+                      {user.initials}
+                    </AvatarFallback>
+                  </Avatar>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-semibold text-gray-900">{user.name}</p>
                     <p className="text-xs text-gray-500">{user.email}</p>
@@ -112,7 +139,11 @@ export function PermissionExplorer({ users, defaultUserId }: PermissionExplorerP
         <>
           {/* Summary bar */}
           <div className="flex items-center gap-3 rounded-xl border border-violet-200 bg-violet-50 px-5 py-3">
-            <Avatar initials={resolved.userInitials} color={resolved.userAvatarColor} size="sm" />
+            <Avatar size="sm">
+              <AvatarFallback style={{ backgroundColor: resolved.userAvatarColor, color: resolved.userAvatarColor ? '#ffffff' : undefined }}>
+                {resolved.userInitials}
+              </AvatarFallback>
+            </Avatar>
             <div className="flex-1">
               <p className="text-sm font-semibold text-violet-900">{resolved.userName}</p>
               <p className="text-xs text-violet-600">

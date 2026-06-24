@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { Plus, X, AlertTriangle, CheckCircle2 } from "lucide-react";
 import type { Role } from "@/lib/types";
 import { RoleBadge } from "@/components/ui/RoleBadge";
-import { cn } from "@/lib/utils";
 
 interface RoleAssignmentProps {
   userId: string;
