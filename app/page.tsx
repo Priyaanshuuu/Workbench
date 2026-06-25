@@ -1,10 +1,30 @@
 import Link from "next/link";
+import { Croissant_One, Black_Ops_One, Bebas_Neue } from "next/font/google";
 import { Shield, Users, Key, Layers, ArrowRight, CheckCircle2, GitMerge } from "lucide-react";
 import { store } from "@/lib/store";
 import { ALL_PERMISSIONS, RESOURCES } from "@/lib/constants";
 import { StatCard } from "@/components/ui/StateCard";
 import { RoleBadge } from "@/components/ui/RoleBadge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+
+// Initialize Fonts (Safely using string "400" for single-weight fonts)
+const croissant = Croissant_One({ 
+  subsets: ["latin"],
+  weight: "400",
+  display: 'swap',
+});
+
+const blackOps = Black_Ops_One({
+  subsets: ["latin"],
+  weight: "400",
+  display: 'swap',
+});
+
+const bebas = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  display: 'swap',
+});
 
 export const dynamic = "force-dynamic";
 
@@ -22,34 +42,45 @@ export default function DashboardPage() {
   const enrichedUsers = users.slice(0, 4).map((user) => ({ ...user, roles: store.getRolesForUser(user.id) }));
 
   return (
-    <div className="space-y-8">
-      <div>
-        <div className="flex items-center gap-3 mb-1">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600 shadow">
-            <Layers className="h-5 w-5 text-white" />
+    <div className={`min-h-screen bg-[#0a0a0a] text-zinc-100 p-6 md:p-8 space-y-8 ${bebas.className} tracking-wide`}>
+      
+      {/* Header Section */}
+      <div className="group cursor-default">
+        <div className="flex items-center gap-4 mb-3">
+          <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-600 shadow-[0_0_20px_rgba(124,58,237,0.3)] group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all duration-300 ease-out">
+            <Layers className="h-7 w-7 text-white" />
           </div>
-          <h1 className="text-2xl font-semibold text-gray-900 tracking-tight">Workbench</h1>
+          <h1 className={`text-4xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-white to-zinc-400 ${croissant.className}`}>
+            Workbench
+          </h1>
         </div>
-        <p className="mt-1 text-sm text-gray-500 ml-12">
+        <p className="mt-2 text-xl md:text-2xl text-zinc-400 ml-[4.5rem] tracking-wider">
           Role & Permission Builder — manage access control for your SaaS platform.
         </p>
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        <StatCard label="Roles" value={roles.length} description={`${roles.filter((r) => r.isSystem).length} system · ${roles.filter((r) => !r.isSystem).length} custom`} icon={<Shield className="h-5 w-5" />} accent="violet" />
-        <StatCard label="Users" value={users.length} description={`${usersWithMultipleRoles.length} with multiple roles`} icon={<Users className="h-5 w-5" />} accent="blue" />
-        <StatCard label="Resources" value={RESOURCES.length} description="Projects, Tasks, Members, Billing, Settings" icon={<Layers className="h-5 w-5" />} accent="emerald" />
-        <StatCard label="Permissions" value={ALL_PERMISSIONS.length} description="Total definable permission actions" icon={<Key className="h-5 w-5" />} accent="amber" />
+        <div className="hover:scale-[1.03] transition-transform duration-300 ease-out hover:shadow-lg hover:shadow-violet-500/10 rounded-xl">
+          <StatCard label="Roles" value={roles.length} description={`${roles.filter((r) => r.isSystem).length} system · ${roles.filter((r) => !r.isSystem).length} custom`} icon={<Shield className="h-6 w-6" />} accent="violet" />
+        </div>
+        <div className="hover:scale-[1.03] transition-transform duration-300 ease-out hover:shadow-lg hover:shadow-blue-500/10 rounded-xl">
+          <StatCard label="Users" value={users.length} description={`${usersWithMultipleRoles.length} with multiple roles`} icon={<Users className="h-6 w-6" />} accent="blue" />
+        </div>
+        <div className="hover:scale-[1.03] transition-transform duration-300 ease-out hover:shadow-lg hover:shadow-emerald-500/10 rounded-xl">
+          <StatCard label="Resources" value={RESOURCES.length} description="Projects, Tasks, Members, Billing, Settings" icon={<Layers className="h-6 w-6" />} accent="emerald" />
+        </div>
+        <div className="hover:scale-[1.03] transition-transform duration-300 ease-out hover:shadow-lg hover:shadow-amber-500/10 rounded-xl">
+          <StatCard label="Permissions" value={ALL_PERMISSIONS.length} description="Total definable permission actions" icon={<Key className="h-6 w-6" />} accent="amber" />
+        </div>
       </div>
-
-      <div className="rounded-xl border border-violet-200 bg-violet-50 p-5">
-        <div className="flex items-start gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-violet-600 flex-shrink-0">
-            <GitMerge className="h-4 w-4 text-white" />
+      <div className="rounded-2xl border border-violet-500/20 bg-violet-950/20 p-6 backdrop-blur-sm hover:scale-[1.01] hover:bg-violet-950/30 hover:border-violet-500/30 hover:shadow-[0_0_30px_rgba(124,58,237,0.1)] transition-all duration-300 ease-out cursor-default">
+        <div className="flex items-start gap-4">
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-violet-600/20 border border-violet-500/30 flex-shrink-0">
+            <GitMerge className="h-6 w-6 text-violet-400" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-violet-900">UNION Permission Strategy</p>
-            <p className="mt-1 text-sm text-violet-700 leading-relaxed">
+            <p className={`text-xl text-violet-300 ${croissant.className}`}>Union Permission Strategy</p>
+            <p className="mt-3 text-lg text-violet-200/70 leading-relaxed tracking-wider">
               When a user holds multiple roles, their effective permissions are the union of all roles. Roles are strictly additive — assigning a role always expands permissions, never restricts them. Every permission is traceable to the role(s) that granted it.
             </p>
           </div>
@@ -57,91 +88,99 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        <div className="rounded-xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-gray-900">Roles</h2>
-            <Link href="/roles" className="text-xs text-violet-600 hover:text-violet-700 font-medium flex items-center gap-1">
-              View all <ArrowRight className="h-3 w-3" />
+        
+        {/* Roles Box */}
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-zinc-700 hover:bg-zinc-900 hover:shadow-2xl transition-all duration-300 ease-out flex flex-col">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className={`text-2xl text-zinc-100 ${croissant.className}`}>Recent Roles</h2>
+            <Link href="/roles" className="text-lg text-violet-400 hover:text-violet-300 flex items-center gap-1.5 transition-colors group">
+              View all <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-4 flex-1">
             {recentRoles.map((role) => (
-              <Link key={role.id} href={`/roles/${role.id}`} className="flex items-center gap-3 rounded-lg border border-gray-100 p-3 hover:border-violet-200 hover:bg-violet-50/50 transition-all">
+              <Link key={role.id} href={`/roles/${role.id}`} className="flex items-center gap-4 rounded-xl border border-zinc-800/50 bg-zinc-950/50 p-4 hover:border-violet-500/40 hover:bg-violet-950/20 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
                 <RoleBadge name={role.name} color={role.color} />
-                <p className="flex-1 text-xs text-gray-500 line-clamp-1">{role.description}</p>
-                <span className="text-xs text-gray-400 flex-shrink-0">{role.permissions.length} perms</span>
+                <p className="flex-1 text-lg text-zinc-400 line-clamp-1 tracking-wider">{role.description}</p>
+                <span className={`text-sm text-zinc-400 flex-shrink-0 bg-zinc-900 px-3 py-1.5 rounded-md border border-zinc-800 tracking-widest ${blackOps.className}`}>
+                  {role.permissions.length} PERMS
+                </span>
               </Link>
             ))}
           </div>
           {mostPermissiveRole && (
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <p className="text-xs text-gray-400">
-                Most permissive: <span className="font-semibold text-gray-600">{mostPermissiveRole.name}</span> ({mostPermissiveRole.count} permissions)
+            <div className="mt-6 pt-5 border-t border-zinc-800">
+              <p className="text-lg text-zinc-400 flex items-center gap-2 tracking-wider">
+                <Shield className="h-5 w-5 text-violet-500" />
+                Most permissive: <span className={`text-zinc-200 tracking-widest ml-1 ${blackOps.className}`}>{mostPermissiveRole.name}</span> 
+                <span className={`text-zinc-500 ${blackOps.className}`}>({mostPermissiveRole.count})</span>
               </p>
             </div>
           )}
         </div>
 
-        <div className="rounded-xl border border-gray-200 bg-white p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-sm font-semibold text-gray-900">Users</h2>
-            <Link href="/users" className="text-xs text-violet-600 hover:text-violet-700 font-medium flex items-center gap-1">
-              View all <ArrowRight className="h-3 w-3" />
+        {/* Users Box */}
+        <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-zinc-700 hover:bg-zinc-900 hover:shadow-2xl transition-all duration-300 ease-out flex flex-col">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className={`text-2xl text-zinc-100 ${croissant.className}`}>Key Users</h2>
+            <Link href="/users" className="text-lg text-violet-400 hover:text-violet-300 flex items-center gap-1.5 transition-colors group">
+              View all <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Link>
           </div>
-          <div className="space-y-3">
+          <div className="space-y-4 flex-1">
             {enrichedUsers.map((user) => (
-              <Link key={user.id} href={`/users/${user.id}`} className="flex items-center gap-3 rounded-lg border border-gray-100 p-3 hover:border-violet-200 hover:bg-violet-50/50 transition-all">
-                {/* Updated Shadcn UI Avatar Implementation */}
-                <Avatar size="sm">
-                  {/* <AvatarImage src={user.avatarUrl} /> */}
+              <Link key={user.id} href={`/users/${user.id}`} className="flex items-center gap-4 rounded-xl border border-zinc-800/50 bg-zinc-950/50 p-4 hover:border-violet-500/40 hover:bg-violet-950/20 hover:-translate-y-1 hover:shadow-lg transition-all duration-300">
+                <Avatar className="h-12 w-12 border border-zinc-800">
                   <AvatarFallback 
                     style={{ 
-                      backgroundColor: user.avatarColor, 
-                      color: user.avatarColor ? '#ffffff' : undefined 
+                      backgroundColor: user.avatarColor || '#27272a', 
+                      color: user.avatarColor ? '#ffffff' : '#a1a1aa' 
                     }}
+                    className={`text-xl ${blackOps.className}`}
                   >
                     {user.initials}
                   </AvatarFallback>
                 </Avatar>
-
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-800 truncate">{user.name}</p>
-                  <p className="text-xs text-gray-400 truncate">{user.email}</p>
+                  <p className="text-xl text-zinc-200 truncate tracking-wider">{user.name}</p>
+                  <p className="text-base text-zinc-500 truncate tracking-widest">{user.email}</p>
                 </div>
-                <div className="flex gap-1 flex-wrap justify-end">
+                <div className="flex gap-2 flex-wrap justify-end">
                   {user.roles.length === 0
-                    ? <span className="text-xs text-gray-400 italic">No roles</span>
-                    : user.roles.map((r) => <RoleBadge key={r.id} name={r.name} color={r.color} size="sm" />)
+                    ? <span className="text-base text-zinc-600 italic">No roles</span>
+                    : user.roles.map((r) => <RoleBadge key={r.id} name={r.name} color={r.color} />)
                   }
                 </div>
               </Link>
             ))}
           </div>
           {usersWithMultipleRoles.length > 0 && (
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <p className="text-xs text-gray-400 flex items-center gap-1.5">
-                <CheckCircle2 className="h-3 w-3 text-emerald-500" />
-                {usersWithMultipleRoles.length} {usersWithMultipleRoles.length === 1 ? "user has" : "users have"} multiple roles with merged permissions
+            <div className="mt-6 pt-5 border-t border-zinc-800">
+              <p className="text-lg text-zinc-400 flex items-center gap-2 tracking-wider">
+                <CheckCircle2 className="h-5 w-5 text-emerald-500" />
+                <span className={`text-xl text-zinc-200 ${blackOps.className}`}>{usersWithMultipleRoles.length}</span> {usersWithMultipleRoles.length === 1 ? "user has" : "users have"} multiple roles merged
               </p>
             </div>
           )}
         </div>
       </div>
 
+      {/* Quick Actions */}
       <div>
-        <h2 className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Quick Actions</h2>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <h2 className={`text-2xl text-zinc-100 mb-5 ml-1 ${croissant.className}`}>Quick Actions</h2>
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
           {[
-            { href: "/roles/new", icon: <Shield className="h-4 w-4" />, bg: "bg-violet-100 text-violet-600 group-hover:bg-violet-600 group-hover:text-white", title: "Create Role", desc: "Define a new access level" },
-            { href: "/users", icon: <Users className="h-4 w-4" />, bg: "bg-blue-100 text-blue-600 group-hover:bg-blue-600 group-hover:text-white", title: "Manage Users", desc: "Assign and update roles" },
-            { href: "/permissions", icon: <Key className="h-4 w-4" />, bg: "bg-emerald-100 text-emerald-600 group-hover:bg-emerald-600 group-hover:text-white", title: "Audit Permissions", desc: "Resolve effective access" },
+            { href: "/roles/new", icon: <Shield className="h-6 w-6" />, bg: "bg-violet-500/10 text-violet-400 group-hover:bg-violet-600 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(124,58,237,0.4)]", title: "Create Role", desc: "Define a new access level" },
+            { href: "/users", icon: <Users className="h-6 w-6" />, bg: "bg-blue-500/10 text-blue-400 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(37,99,235,0.4)]", title: "Manage Users", desc: "Assign and update roles" },
+            { href: "/permissions", icon: <Key className="h-6 w-6" />, bg: "bg-emerald-500/10 text-emerald-400 group-hover:bg-emerald-600 group-hover:text-white group-hover:shadow-[0_0_20px_rgba(5,150,105,0.4)]", title: "Audit Permissions", desc: "Resolve effective access" },
           ].map((item) => (
-            <Link key={item.href} href={item.href} className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white px-5 py-4 hover:border-violet-300 hover:shadow-sm transition-all group">
-              <div className={`flex h-9 w-9 items-center justify-center rounded-lg transition-colors ${item.bg}`}>{item.icon}</div>
+            <Link key={item.href} href={item.href} className="flex items-center gap-5 rounded-2xl border border-zinc-800 bg-zinc-900/40 p-6 hover:border-zinc-600 hover:bg-zinc-900 hover:scale-105 hover:shadow-xl transition-all duration-300 ease-out group">
+              <div className={`flex h-14 w-14 items-center justify-center rounded-xl transition-all duration-300 ${item.bg}`}>
+                {item.icon}
+              </div>
               <div>
-                <p className="text-sm font-semibold text-gray-800">{item.title}</p>
-                <p className="text-xs text-gray-400">{item.desc}</p>
+                <p className={`text-xl text-zinc-100 tracking-widest ${blackOps.className}`}>{item.title}</p>
+                <p className="text-lg text-zinc-400 mt-1 tracking-wider">{item.desc}</p>
               </div>
             </Link>
           ))}
