@@ -1,16 +1,9 @@
-import { Croissant_One, Black_Ops_One, Bebas_Neue } from "next/font/google";
+import { Croissant_One,  Bebas_Neue } from "next/font/google";
 import { Users } from "lucide-react";
 import { store } from "@/lib/store";
 import { UserCard } from "@/components/users/UserCard";
 
-// Initialize Fonts
 const croissant = Croissant_One({ 
-  subsets: ["latin"],
-  weight: "400",
-  display: 'swap',
-});
-
-const blackOps = Black_Ops_One({
   subsets: ["latin"],
   weight: "400",
   display: 'swap',

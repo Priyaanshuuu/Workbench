@@ -4,7 +4,6 @@ import { Plus, Shield } from "lucide-react";
 import { store } from "@/lib/store";
 import { RoleCard } from "@/components/roles/RoleCard";
 
-// Initialize Fonts
 const croissant = Croissant_One({ 
   subsets: ["latin"],
   weight: "400",
@@ -32,7 +31,6 @@ export default function RolesPage() {
   return (
     <div className={`min-h-screen bg-[#0a0a0a] text-zinc-100 p-6 md:p-8 space-y-8 ${bebas.className} tracking-wide`}>
       
-      {/* High-End Header Section */}
       <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 group cursor-default">
         <div className="flex-1">
           <div className="flex items-center gap-4 mb-3">
@@ -48,7 +46,7 @@ export default function RolesPage() {
           </p>
         </div>
 
-        {/* Cinematic Action Button */}
+
         <div className="md:pt-2 ml-[4.5rem] md:ml-0">
           <Link 
             href="/roles/new" 
@@ -61,7 +59,7 @@ export default function RolesPage() {
       </div>
 
       {rolesWithCounts.length === 0 ? (
-        /* Themed Empty State */
+        
         <div className="flex flex-col items-center justify-center rounded-3xl border border-zinc-800 border-dashed bg-zinc-900/20 py-24 px-6 hover:bg-zinc-900/40 hover:border-zinc-700 hover:shadow-2xl transition-all duration-500 ease-out text-center group cursor-default">
           <div className="flex h-20 w-20 items-center justify-center rounded-2xl bg-zinc-800/50 mb-6 shadow-inner group-hover:scale-110 group-hover:bg-zinc-800 transition-all duration-500">
             <Shield className="h-10 w-10 text-zinc-500 group-hover:text-violet-500 transition-colors duration-300" />
@@ -79,7 +77,6 @@ export default function RolesPage() {
           </Link>
         </div>
       ) : (
-        /* Role Cards Grid */
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 2xl:grid-cols-3 pt-4">
           {rolesWithCounts.map((role) => (
             <div key={role.id} className="hover:scale-[1.02] transition-transform duration-300 ease-out">
