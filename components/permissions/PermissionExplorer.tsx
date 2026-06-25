@@ -63,7 +63,6 @@ export function PermissionExplorer({ users, defaultUserId }: PermissionExplorerP
 
   return (
     <div className="space-y-6">
-      {/* User selector */}
       <div className="rounded-xl border border-gray-200 bg-white p-5">
         <label className="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">Select User</label>
         <div className="relative">
@@ -74,7 +73,6 @@ export function PermissionExplorer({ users, defaultUserId }: PermissionExplorerP
             {selectedUser ? (
               <>
                 <Avatar size="sm">
-                  {/* <AvatarImage src={selectedUser.avatarUrl} /> */}
                   <AvatarFallback style={{ backgroundColor: selectedUser.avatarColor, color: selectedUser.avatarColor ? '#ffffff' : undefined }}>
                     {selectedUser.initials}
                   </AvatarFallback>
@@ -137,7 +135,6 @@ export function PermissionExplorer({ users, defaultUserId }: PermissionExplorerP
 
       {!loading && !error && resolved && (
         <>
-          {/* Summary bar */}
           <div className="flex items-center gap-3 rounded-xl border border-violet-200 bg-violet-50 px-5 py-3">
             <Avatar size="sm">
               <AvatarFallback style={{ backgroundColor: resolved.userAvatarColor, color: resolved.userAvatarColor ? '#ffffff' : undefined }}>
@@ -165,7 +162,6 @@ export function PermissionExplorer({ users, defaultUserId }: PermissionExplorerP
             </div>
           ) : (
             <div className="rounded-xl border border-gray-200 bg-white overflow-hidden">
-              {/* Table header */}
               <div className="grid grid-cols-12 gap-3 bg-gray-50 px-5 py-3 border-b border-gray-200">
                 <div className="col-span-2"><span className="text-[11px] font-semibold uppercase tracking-widest text-gray-400">Resource</span></div>
                 <div className="col-span-2"><span className="text-[11px] font-semibold uppercase tracking-widest text-gray-400">Action</span></div>

@@ -7,7 +7,6 @@ import { StatCard } from "@/components/ui/StateCard";
 import { RoleBadge } from "@/components/ui/RoleBadge";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
-// Initialize Fonts (Safely using string "400" for single-weight fonts)
 const croissant = Croissant_One({ 
   subsets: ["latin"],
   weight: "400",
@@ -44,7 +43,6 @@ export default function DashboardPage() {
   return (
     <div className={`min-h-screen bg-[#0a0a0a] text-zinc-100 p-6 md:p-8 space-y-8 ${bebas.className} tracking-wide`}>
       
-      {/* Header Section */}
       <div className="group cursor-default">
         <div className="flex items-center gap-4 mb-3">
           <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-violet-600 shadow-[0_0_20px_rgba(124,58,237,0.3)] group-hover:scale-105 group-hover:shadow-[0_0_30px_rgba(124,58,237,0.5)] transition-all duration-300 ease-out">
@@ -88,8 +86,7 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        
-        {/* Roles Box */}
+      
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-zinc-700 hover:bg-zinc-900 hover:shadow-2xl transition-all duration-300 ease-out flex flex-col">
           <div className="flex items-center justify-between mb-6">
             <h2 className={`text-2xl text-zinc-100 ${croissant.className}`}>Recent Roles</h2>
@@ -118,8 +115,6 @@ export default function DashboardPage() {
             </div>
           )}
         </div>
-
-        {/* Users Box */}
         <div className="rounded-2xl border border-zinc-800 bg-zinc-900/50 p-6 hover:border-zinc-700 hover:bg-zinc-900 hover:shadow-2xl transition-all duration-300 ease-out flex flex-col">
           <div className="flex items-center justify-between mb-6">
             <h2 className={`text-2xl text-zinc-100 ${croissant.className}`}>Key Users</h2>
@@ -165,7 +160,6 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Quick Actions */}
       <div>
         <h2 className={`text-2xl text-zinc-100 mb-5 ml-1 ${croissant.className}`}>Quick Actions</h2>
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">

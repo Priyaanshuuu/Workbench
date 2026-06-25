@@ -10,7 +10,6 @@ import { RoleAssignment } from "@/components/users/RoleAssignment";
 import { RESOURCES } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 
-// Initialize Fonts
 const croissant = Croissant_One({ 
   subsets: ["latin"],
   weight: "400",
@@ -42,13 +41,10 @@ export default async function UserDetailPage({ params }: Params) {
   const resolved = buildUserResolvedPermissions(user, assignedRoles);
 
   return (
-    /* Main Wrapper: Flexbox used to center the content perfectly */
     <div className={`min-h-[calc(100vh-2rem)] bg-[#0a0a0a] text-zinc-100 flex flex-col items-center justify-center p-6 md:p-8 ${bebas.className} tracking-wide`}>
       
-      {/* Constrained Inner Container (Wider than forms to fit the grid) */}
       <div className="w-full max-w-6xl">
-        
-        {/* Animated Back Navigation */}
+      
         <Link 
           href="/users" 
           className={`mb-8 inline-flex items-center gap-2 text-zinc-500 hover:text-blue-400 hover:-translate-x-2 transition-all duration-300 ease-out ${blackOps.className} tracking-widest text-lg`}
@@ -57,7 +53,6 @@ export default async function UserDetailPage({ params }: Params) {
           BACK TO USERS
         </Link>
 
-        {/* Cinematic User Profile Header Card */}
         <div className="mb-8 flex flex-col md:flex-row md:items-center gap-6 rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6 md:p-8 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:border-zinc-700 hover:shadow-[0_0_40px_rgba(37,99,235,0.1)]">
           <Avatar className="h-20 w-20 md:h-24 md:w-24 border-2 border-zinc-800 shadow-xl">
             <AvatarFallback 
@@ -90,10 +85,8 @@ export default async function UserDetailPage({ params }: Params) {
           </div>
         </div>
 
-        {/* Content Grid */}
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-5">
           
-          {/* Left Column: Role Management */}
           <div className="lg:col-span-2">
             <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6 md:p-8 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:border-zinc-700 h-full">
               <div className="flex items-center gap-3 mb-6">
@@ -103,8 +96,6 @@ export default async function UserDetailPage({ params }: Params) {
               <RoleAssignment userId={user.id} assignedRoles={assignedRoles} allRoles={allRoles} />
             </div>
           </div>
-
-          {/* Right Column: Effective Permissions */}
           <div className="lg:col-span-3">
             <div className="rounded-3xl border border-zinc-800 bg-zinc-900/40 p-6 md:p-8 shadow-2xl backdrop-blur-sm transition-all duration-300 hover:border-zinc-700 h-full">
               
@@ -127,12 +118,10 @@ export default async function UserDetailPage({ params }: Params) {
                     if (resourcePerms.length === 0) return null;
                     return (
                       <div key={resource.key} className="group">
-                        {/* Resource Category Label */}
                         <p className={`text-sm text-zinc-400 mb-3 tracking-widest ${blackOps.className}`}>
                           {resource.label}
                         </p>
-                        
-                        {/* Permission Tags */}
+                      
                         <div className="flex flex-wrap gap-2.5">
                           {resource.actions.map((action) => {
                             const granted = resourcePerms.find((p) => p.action === action.key);
@@ -157,8 +146,6 @@ export default async function UserDetailPage({ params }: Params) {
                   })}
                 </div>
               )}
-
-              {/* Full Audit Link */}
               {resolved.totalPermissions > 0 && (
                 <div className="mt-8 pt-6 border-t border-zinc-800/80">
                   <Link 
